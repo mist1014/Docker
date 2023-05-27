@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: "nginx:alpine"
+    networks:
+    - net
+    ports:
+    - "80:80"
+    volumes:
+    - ./www:/var/www
+    - ./nginx:/etc/nginx/conf.d
+
+  php:
+    build: .
+    networks:
+    - net
+    volumes:
+    - ./www:/var/www
+    - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://nginx"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+networks:
+  net:
