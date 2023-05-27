@@ -19,7 +19,7 @@ services:
     - ./www:/var/www
     - ./php/php.ini:/usr/local/etc/php/conf.d/php.ini
     healthcheck:
-      test: ["CMD-SHELL", "curl http://nginx"]
+      test: ["CMD-SHELL", "curl http://nginx | grep works"]
       interval: 5s
       timeout: 5s
       retries: 5
